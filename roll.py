@@ -6,8 +6,8 @@ from time import sleep
 # REST
 from flask import Flask, render_template, send_from_directory
 
-rollade = LED(17)
-stopper = LED(27)
+rollade = LED(27)
+stopper = LED(22)
 
 app = Flask(__name__)
 '''
@@ -31,13 +31,10 @@ def getStatus():
 def up():
     stopper.off()
     rollade.off()
-    return "up() full"
-
 
 def down():
     stopper.off()
     rollade.on()
-    return "down() full"
 
 # This factor is to edit by yourself
 def calculateDown(time):
@@ -70,7 +67,6 @@ def goDownFor(percent):
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
-#    return render_template("indexOLD.html")
 
 @app.route('/up')
 def rollUp():
@@ -98,21 +94,16 @@ def set_height(des):
     travel = int(abs(currentHeight - des))
     lastHeight = currentHeight
     currentHeight = des
-
     print(str(lastHeight)+" "+str(currentHeight)+" bisher : desired")
-
     if des == 100:
-        print("completely up")
-        return up()
+        up()
     if des == 0:
-        print("completely down")
-        return down()
+        down()
     if lastHeight < des:
         goUpFor(travel)
-        return str(travel)
     else:
         goDownFor(travel)
-        return str(travel)
+    return str(travel)
 
 if __name__ == '__main__':
-     app.run(debug=True, host='0.0.0.0')
+     app.run(debug=False, host='0.0.0.0')
