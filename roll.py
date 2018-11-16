@@ -1,5 +1,4 @@
 #!flask/bin/python
-
 # GPIO
 from gpiozero import LED
 from time import sleep
@@ -12,15 +11,16 @@ rollade = LED(27)
 stopper = LED(22)
 
 app = Flask(__name__)
-'''
-    rollade.off means its max up
-    rollade.on means its down completely
 
-    stop() cuts power on both sides, so its stopping
-    stopper.on is active stopping
-    stopper.off is essential for normal use
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0')
 
-'''
+#    rollade.off means its max up
+#    rollade.on means its down completely
+#    stop() cuts power on both sides, so its stopping
+#    stopper.on is active stopping
+#    stopper.off is essential for normal use
+
 # init
 stopper.off()
 rollade.off()
@@ -28,7 +28,7 @@ currentHeight = 100
 lastHeight = 100
 
 def getStatus():
-    return jsonify(position = currentHeight)
+    return jsonify(position=currentHeight)
 
 def up():
     stopper.off()
@@ -38,7 +38,7 @@ def down():
     stopper.off()
     rollade.on()
 
-# This factor is to edit by yourself
+# These factors are to edit by yourself in the config.py
 def calculateDown(time):
     return time * config.downFactor
 
@@ -52,7 +52,7 @@ def goUpFor(percent):
     stopper.off()
     rollade.off()
     howLong = calculateUp(percent)
-    print("goUpFor: "+str(howLong))
+    print("goUpFor: " + str(howLong))
     sleep(howLong)
     stopper.on()
 
@@ -60,10 +60,9 @@ def goDownFor(percent):
     stopper.off()
     rollade.on()
     howLong = calculateDown(percent)
-    print("goDownFor: "+str(howLong))
+    print("goDownFor: " + str(howLong))
     sleep(howLong)
     stopper.on()
-
 
 # routes for the webUI
 @app.route('/')
@@ -72,11 +71,13 @@ def index():
 
 @app.route('/up')
 def rollUp():
-    return up()
+    up()
+    return jsonify(position=currentHeight)
 
 @app.route('/down')
 def rollDown():
-    return down()
+    down()
+    return jsonify(position=currentHeight)
 
 @app.route('/stop')
 def stopRolling():
@@ -96,8 +97,8 @@ def set_height(des):
     travel = int(abs(currentHeight - des))
     lastHeight = currentHeight
     currentHeight = des
-    print ("bisher: "+str (lastHeight)+" desired: "+str (currentHeight))
-    print ("ziel: "+str (des))
+    print("bisher: " + str(lastHeight) + " desired: " + str(currentHeight))
+    print("ziel: " + str(des))
     if des == 100:
         up()
     elif des == 0:
@@ -106,8 +107,4 @@ def set_height(des):
         goUpFor(travel)
     else:
         goDownFor(travel)
-
-    return jsonify(position = currentHeight)
-
-if __name__ == '__main__':
-     app.run(debug=False, host='0.0.0.0')
+    return jsonify(position=currentHeight)
