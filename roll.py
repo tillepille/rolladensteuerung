@@ -4,7 +4,9 @@
 from gpiozero import LED
 from time import sleep
 # REST
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, jsonify
+
+import config
 
 rollade = LED(27)
 stopper = LED(22)
@@ -16,7 +18,7 @@ app = Flask(__name__)
 
     stop() cuts power on both sides, so its stopping
     stopper.on is active stopping
-    stopper.off is essential for normal "normal" use
+    stopper.off is essential for normal use
 
 '''
 # init
@@ -26,7 +28,7 @@ currentHeight = 100
 lastHeight = 100
 
 def getStatus():
-    return str(currentHeight)
+    return jsonify(position = currentHeight)
 
 def up():
     stopper.off()
@@ -38,13 +40,13 @@ def down():
 
 # This factor is to edit by yourself
 def calculateDown(time):
-    return time * 0.1
+    return time * config.downFactor
 
 def calculateUp(time):
     if lastHeight == 0:
-        return ((time * 0.115) + 4)
+        return ((time * config.upFactor) + config.waitFromBottom)
     else:
-        return time * 0.115
+        return time * config.upFactor
 
 def goUpFor(percent):
     stopper.off()
@@ -94,16 +96,18 @@ def set_height(des):
     travel = int(abs(currentHeight - des))
     lastHeight = currentHeight
     currentHeight = des
-    print(str(lastHeight)+" "+str(currentHeight)+" bisher : desired")
+    print ("bisher: "+str (lastHeight)+" desired: "+str (currentHeight))
+    print ("ziel: "+str (des))
     if des == 100:
         up()
-    if des == 0:
+    elif des == 0:
         down()
-    if lastHeight < des:
+    elif lastHeight < des:
         goUpFor(travel)
     else:
         goDownFor(travel)
-    return str(travel)
+
+    return jsonify(position = currentHeight)
 
 if __name__ == '__main__':
      app.run(debug=False, host='0.0.0.0')
