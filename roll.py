@@ -12,9 +12,6 @@ stopper = LED(22)
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
-
 #    rollade.off means its max up
 #    rollade.on means its down completely
 #    stop() cuts power on both sides, so its stopping
@@ -108,3 +105,7 @@ def set_height(des):
     else:
         goDownFor(travel)
     return jsonify(position=currentHeight)
+
+
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0')
