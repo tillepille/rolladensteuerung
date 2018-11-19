@@ -7,8 +7,8 @@ from flask import Flask, render_template, send_from_directory, jsonify
 
 import config
 
-rollade = LED(27)
-stopper = LED(22)
+rollade = LED(config.rollPin)
+stopper = LED(config.stopperPin)
 
 app = Flask(__name__)
 
