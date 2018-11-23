@@ -24,9 +24,6 @@ rollade.off()
 currentHeight = 100
 lastHeight = 100
 
-def getStatus():
-    return jsonify(position=currentHeight)
-
 def up():
     stopper.off()
     rollade.off()
@@ -83,7 +80,7 @@ def stopRolling():
 
 @app.route('/status')
 def status():
-    return getStatus()
+    return jsonify(position=currentHeight)
 
 # for homebridge / homekit integration
 @app.route('/height/<int:des>')
