@@ -5,7 +5,7 @@ Made to use with [homebridge](https://github.com/nfarina/homebridge/) and optimi
 
 Since its Flask default it runs on port 5000
 
-A small [Vue.js](https://vuejs.org) powered, mobile-focused web frontend is available [here](https://github.com/tillepille/rolladensteuerung-frontend) and because of some issues webpacked included in this repository under the static folder.
+A small [Vue.js](https://vuejs.org) powered, mobile-focused web frontend is included. See ```/static``` .
 ____
 ## Prerequisites
 1. 1 RaspberryPi with GPIO and Network
@@ -23,6 +23,8 @@ It provides endpoints for:
 - /down (no matter where the blinds are)
 - /stop (simply just stop at the current position)
 - /height/<0-100> (where 0 is shut, 100 open)
+
+In general, all requests send back the current / now desired position.
 ____
 ### Schema
 Wire everything like the schema below, where your brown cable comes from the power source,
