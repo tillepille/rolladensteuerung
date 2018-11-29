@@ -1,1 +1,54 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/static/favicon.ico><title>rolladensteuerung</title><link href=/static/css/app.97aae1b9.css rel=preload as=style><link href=/static/js/app.0990849e.js rel=preload as=script><link href=/static/js/chunk-vendors.aba6ca5b.js rel=preload as=script><link href=/static/css/app.97aae1b9.css rel=stylesheet></head><body><noscript><strong>We're sorry but rolladensteuerung doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/static/js/chunk-vendors.aba6ca5b.js></script><script src=/static/js/app.0990849e.js></script></body></html>
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+  <meta charset=utf-8>
+  <meta http-equiv=X-UA-Compatible content="IE=edge">
+  <meta name=viewport content="width=device-width,initial-scale=1">
+  <link rel=icon href=/static/favicon.ico>
+  <title>Rolladensteuerung</title>
+  <link href=/static/css/style.css rel=stylesheet>
+</head>
+
+<body>
+  <noscript><strong>We're sorry but Rolladensteuerung doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+  <div id="app">
+    <div>
+      <a href="#" v-on:click="up()">
+        <div class="big up">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm292 116V256h70.9c10.7 0 16.1-13 8.5-20.5L264.5 121.2c-4.7-4.7-12.2-4.7-16.9 0l-115 114.3c-7.6 7.6-2.2 20.5 8.5 20.5H212v116c0 6.6 5.4 12 12 12h64c6.6 0 12-5.4 12-12z" />
+            <!-- Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com   License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)-->
+          </svg>
+        </div>
+      </a>
+      <a href="#" v-on:click="down()">
+        <div class="big down">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM212 140v116h-70.9c-10.7 0-16.1 13-8.5 20.5l114.9 114.3c4.7 4.7 12.2 4.7 16.9 0l114.9-114.3c7.6-7.6 2.2-20.5-8.5-20.5H300V140c0-6.6-5.4-12-12-12h-64c-6.6 0-12 5.4-12 12z" />
+            <!-- Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com   License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)-->
+          </svg>
+        </div>
+      </a>
+    </div>
+    <div class="spacer"></div>
+    <div>
+      <div>
+        <span> {{position}} %</span>
+        <br>
+        <br>
+      </div>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="100" v-model="position" class="slider" id="myRanger">
+        <div>
+          <a href="#">
+            <span v-on:click="moveTo()">Los!</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+  <script src=/static/js/app.js> </script> </body> </html>

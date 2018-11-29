@@ -3,7 +3,7 @@
 from gpiozero import LED
 from time import sleep
 # REST
-from flask import Flask, render_template, send_from_directory, jsonify
+from flask import Flask, send_from_directory, jsonify
 
 import config
 
@@ -25,13 +25,17 @@ currentHeight = 100
 lastHeight = 100
 
 def up():
+    global currentHeight
     stopper.off()
     rollade.off()
+    currentHeight = 100
 
 def down():
+    global currentHeight
     stopper.off()
     rollade.on()
-
+    currentHeight = 0
+    
 # These factors are to edit by yourself in the config.py
 def calculateDown(time):
     return time * config.downFactor
