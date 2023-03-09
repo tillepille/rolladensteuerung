@@ -12,7 +12,7 @@ ____
 
 1. 1 RaspberryPi with GPIO and Network
 2. 2 relays, 4 jumper cables, 1 short piece(5 cm) of normal electric cable
-3. Python with Flask and gpiozero installed ( `pip install flask gpiozero` )
+3. Python with Flask and gpiozero installed ( `pip install -r requirements.txt` )
 4. **experience with working on high currents!**
 
 To gain precise positioning you definetly need to tune the factors in ```config.py```.
