@@ -1,5 +1,7 @@
 #! /bin/sh
 #
+# Copy to /etc/init.d/
+#
 ### BEGIN INIT INFO
 # Provides:          pitracker
 # Required-Start:    $all
