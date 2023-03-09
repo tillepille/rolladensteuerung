@@ -12,24 +12,19 @@
 # Description:       This service starts both homekit servers
 ### END INIT INFO
 
-PATH=/bin:/usr/bin:/sbin:/usr/sbin
+PATH=/home/pi/.local/bin:/bin:/usr/bin:/sbin:/usr/sbin
 set -e
 
 case "$1" in
     start)
-        #Aktion wenn start uebergeben wird
-        echo "Start Homekit Client"
         python3 /home/pi/rolladensteuerung/roll.py > access.log &
             ;;
 
     stop)
-        #Aktion wenn stop uebergeben wird
-        echo "Stop Homekit Client"
         killall python3
             ;;
 
     restart)
-        #Aktion wenn restart uebergeben wird
             echo "Restart Homekit Client"
             ;;
     *)
